@@ -4,16 +4,15 @@ import CryptoJS from 'crypto-js';
 function App() {
   const [inputText, setInputText] = useState('');
   const [encryptedText, setEncryptedText] = useState('');
+  const [key,setKey] = useState('');
 
   const encryptText = () => {
-    const key = 'clave';
     const encrypted = CryptoJS.AES.encrypt(inputText, key).toString();
     setEncryptedText(encrypted);
   }
 
   const decryptText = () => {
-    const key = 'clave';
-    const encrypted = CryptoJS.AES.decrypt(encryptedText, key).toString(CryptoJS.enc.Utf8);
+    const encrypted = CryptoJS.AES.decrypt(inputText, key).toString(CryptoJS.enc.Utf8);
     setEncryptedText(encrypted);
   }
 
@@ -27,6 +26,12 @@ function App() {
         onChange={e => setInputText(e.target.value)}
         placeholder="Texto a cifrar"
       />
+      <h3>Clave</h3>
+      <input class="form-control mb-2" placeholder='Introduce la clave'
+        type="text"
+        value={key}
+        onChange={a => setKey(a.target.value)}
+      ></input>
       <button class="btn btn-primary" onClick={encryptText}>Cifrar</button>
       <button class="btn btn-warning mx-2" onClick={decryptText}>Descifrar</button>
 
